@@ -1,0 +1,138 @@
+so what you have to do is to add this code of row per page and pgination like the first image in the code i will provide you the and male the both code codes like exact same like the second image 
+
+row per page and pgination code
+
+import * as React from "react";
+import TablePagination from "@mui/material/TablePagination";
+import Pagination from "@mui/material/Pagination";
+import PaginationItem from "@mui/material/PaginationItem";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import { Select, MenuItem } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+
+const customTheme = createTheme({
+  components: {
+    MuiPaginationItem: {
+      styleOverrides: {
+        root: {
+          borderRadius: "50%",
+          backgroundColor: "transparent",
+          color: "#AFAFAF",
+          minWidth: "32px",
+          height: "32px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "14px",
+          "&:hover": {
+            backgroundColor: "#E0E0E0",
+          },
+        },
+        outlined: {
+          border: "none",
+          "&.Mui-selected": {
+            color: "#F9792D !important",
+            fontWeight: "bold",
+          },
+        },
+      },
+    },
+  },
+});
+
+export default function CustomPagination() {
+  const [page, setPage] = React.useState(1);
+  const [rowsPerPage, setRowsPerPage] = React.useState(75);
+  const totalRows = 150;
+  const totalPages = Math.ceil(totalRows / rowsPerPage);
+
+  const handleChangePage = (event, value) => {
+    setPage(value);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(1);
+  };
+
+  return (
+    <ThemeProvider theme={customTheme}>
+      <Box display="flex" alignItems="center" justifyContent="space-between" width="1086px" height="24px">
+        {/* Rows per page dropdown */}
+        <Box display="flex" alignItems="center" width="194px" height="24px">
+          <Typography variant="body2" sx={{ color: "#000", marginRight: 1 }}>
+            Rows per page
+          </Typography>
+          <Select
+            value={rowsPerPage}
+            onChange={handleChangeRowsPerPage}
+            displayEmpty
+            variant="standard"
+            disableUnderline
+            IconComponent={ExpandMoreIcon}
+            sx={{
+              fontWeight: "bold",
+              color: "#F9792D",
+              '& .MuiSelect-icon': {
+                color: "#F9792D",
+              },
+            }}
+          >
+            {[25, 50, 75, 100].map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </Select>
+          <Typography variant="body2" sx={{ marginLeft: 1, color: "#000" }}>
+            {page} of {totalPages}
+          </Typography>
+        </Box>
+
+        {/* Custom-styled Pagination */}
+        <Stack spacing={2} direction="row" alignItems="center">
+          <Pagination
+            count={totalPages}
+            page={page}
+            onChange={handleChangePage}
+            shape="rounded"
+            renderItem={(item) => (
+              <PaginationItem
+                {...item}
+                sx={{
+                  borderRadius: "50%",
+                  minWidth: "32px",
+                  height: "32px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: item.type === "previous" || item.type === "next" ? "#F9792D" : "transparent",
+                  color: item.selected ? "#F9792D" : "#AFAFAF",
+                  fontWeight: item.selected ? "bold" : "normal",
+                  "&:hover": {
+                    backgroundColor: item.type === "previous" || item.type === "next" ? "#F9792D" : "#E0E0E0",
+                  },
+                }}
+                icon={
+                  item.type === "previous" ? (
+                    <ArrowBackIcon sx={{ color: "white" }} />
+                  ) : item.type === "next" ? (
+                    <ArrowForwardIcon sx={{ color: "white" }} />
+                  ) : undefined
+                }
+              />
+            )}
+          />
+        </Stack>
+      </Box>
+    </ThemeProvider>
+  );
+}
+
+
+Other code in which you have to add the row per page and pgination like the second image 
