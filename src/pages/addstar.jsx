@@ -720,7 +720,7 @@ export default function SetNewStarProfile() {
               }
             }}
           >
-            Save & Next
+            Save & No
           </Button>
         </Box>
       </Container>
